@@ -54,3 +54,15 @@ resource "aws_cloudwatch_metric_alarm" "ecs_cpu_utilization_high" {
     ServiceName = var.ecs_service_name
   }
 }
+
+
+resource "aws_cloudwatch_event_rule" "guardduty_event_rule" {
+  name          = "guardduty-event-rule"
+  description   = "Trigger an event for GuardDuty findings"
+  event_pattern = jsonencode({ source = ["aws.guardduty"] })
+}
+
+resource "aws_cloudwatch_event_target" "guardduty_event_target" {
+  rule = aws_cloudwatch_event_rule.guardduty_event_rule.name
+  arn  = var.email_alert_sns_topic_arn
+}

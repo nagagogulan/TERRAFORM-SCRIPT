@@ -1,15 +1,9 @@
-variable "ses_domain" {
-  description = "Domain Name"
+variable "domain_name" {
+  description = "Domain name"
   type        = string
 }
 
-variable "ses_zone_id" {
-  description = "Zone Id Name"
+variable "zone_id" {
+  description = "Zone id"
   type        = string
-}
-
-
-variable "ses_email" {
-  type        = list(string)
-  description = "Email List"
 }

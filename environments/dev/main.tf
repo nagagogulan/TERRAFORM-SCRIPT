@@ -133,10 +133,10 @@ module "ecs" {
 module "cloudwatch" {
   source = "../../modules/cloudwatch"
 
+  ecs_service_name = module.ecs.ecs_service_name
   rds_instance_id  = module.rds.rds_cluster_instance_id
   app_name         = var.app_name
   env_name         = var.env_name
-  ecs_service_name = module.ecs.ecs_service_name
   email_alert_sns_topic_arn    = module.sns.email_alert_sns_topic_arn
   common_tags      = var.common_tags
 }
@@ -179,3 +179,18 @@ module "ssl_certificate" {
   zone_id     = module.route53.zone_id
   common_tags = var.common_tags
 }
+
+module "ses" {
+  source = "../../modules/ses"
+
+  zone_id =module.route53.zone_id
+  domain_name = var.domain_name
+}
+
+# module "guardduty" {
+#   source = "../../modules/guardduty"
+# }
+
+# module "inspector" {
+#   source = "../../modules/inspector"
+# }
