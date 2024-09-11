@@ -80,3 +80,13 @@ variable "ecs_memory" {
   description = "ECS memory configuration"
   type        = string
 }
+
+variable "kyc_bucket_name" {
+  description = "KYC bucket name"
+  type        = string
+}
+
+variable "document_bucket_name" {
+  description = "Document bucket name"
+  type        = string
+}

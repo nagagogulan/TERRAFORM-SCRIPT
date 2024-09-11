@@ -52,6 +52,10 @@ resource "aws_ecs_task_definition" "admin_task_definition" {
           "protocol": "tcp"
         }
       ],
+      "environment": [
+        {"name": "KYC_BUCKET_NAME", "value": "${var.kyc_bucket_name}"},
+        {"name": "DOCUMENT_BUCKET_NAME", "value": "${var.document_bucket_name}"}
+      ],
        "secrets": [
               {
                 "name": "DB_CREDENTIALS",
@@ -134,6 +138,10 @@ resource "aws_ecs_task_definition" "merchant_task_definition" {
           "protocol": "tcp"
         }
       ],
+      "environment": [
+        {"name": "KYC_BUCKET_NAME", "value": "${var.kyc_bucket_name}"},
+        {"name": "DOCUMENT_BUCKET_NAME", "value": "${var.document_bucket_name}"}
+      ],
       "secrets": [
               {
                 "name": "DB_CREDENTIALS",
@@ -214,6 +222,10 @@ resource "aws_ecs_task_definition" "payment_task_definition" {
           "hostPort": 80,
           "protocol": "tcp"
         }
+      ],
+      "environment": [
+        {"name": "KYC_BUCKET_NAME", "value": "${var.kyc_bucket_name}"},
+        {"name": "DOCUMENT_BUCKET_NAME", "value": "${var.document_bucket_name}"}
       ],
       "secrets": [
               {

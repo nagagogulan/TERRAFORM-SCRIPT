@@ -92,7 +92,7 @@ module "loadbalancer" {
   load_balancer_logs_s3_bucket_id = module.s3.load_balancer_logs_s3_bucket_id
   common_tags                     = var.common_tags
   certificate_arn                 = ""
-  # certificate_arn            = module.ssl_certificate.ssl_certificate_arn
+  #certificate_arn            = module.ssl_certificate.ssl_certificate_arn
 }
 
 module "ecr" {
@@ -124,6 +124,8 @@ module "ecs" {
   ecs_memory                  = var.ecs_memory
   region                      = var.region
   db_secret_arn               = lookup(module.rds.db_user_secret[0], "secret_arn", null)
+  kyc_bucket_name      = module.s3.kyc_storage_s3_bucket_id
+  document_bucket_name = module.s3.document_storage_s3_bucket_id
 
   depends_on = [module.loadbalancer]
 }
@@ -170,9 +172,10 @@ module "waf" {
   depends_on = [module.loadbalancer]
 }
 
-# module "ssl_certificate" {
-#   source = "../../modules/certificate"
+module "ssl_certificate" {
+  source = "../../modules/certificate"
 
-#   domain_name = var.domain_name
-#   common_tags = var.common_tags
-# }
+  domain_name = var.domain_name
+  zone_id     = module.route53.zone_id
+  common_tags = var.common_tags
+}
