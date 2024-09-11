@@ -1,4 +1,4 @@
-variable "rds_instance_id" {
+variable "rds_cluster_id" {
   description = "RDS instance id"
   type        = string
 }
@@ -22,7 +22,22 @@ variable "email_alert_sns_topic_arn" {
   type        = string
 }
 
-variable "ecs_service_name" {
-  description = "ECS id"
+variable "ecs_admin_service_name" {
+  description = "ECS admin service name"
+  type        = string
+}
+
+variable "ecs_merchant_service_name" {
+  description = "ECS merchant service name"
+  type        = string
+}
+
+variable "ecs_payment_service_name" {
+  description = "ECS payment service name"
+  type        = string
+}
+
+variable "ecs_cluster_name" {
+  description = "ECS cluster name"
   type        = string
 }

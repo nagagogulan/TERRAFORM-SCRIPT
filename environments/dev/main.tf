@@ -124,8 +124,8 @@ module "ecs" {
   ecs_memory                  = var.ecs_memory
   region                      = var.region
   db_secret_arn               = lookup(module.rds.db_user_secret[0], "secret_arn", null)
-  kyc_bucket_name      = module.s3.kyc_storage_s3_bucket_id
-  document_bucket_name = module.s3.document_storage_s3_bucket_id
+  kyc_bucket_name             = module.s3.kyc_storage_s3_bucket_id
+  document_bucket_name        = module.s3.document_storage_s3_bucket_id
 
   depends_on = [module.loadbalancer]
 }
@@ -133,12 +133,15 @@ module "ecs" {
 module "cloudwatch" {
   source = "../../modules/cloudwatch"
 
-  ecs_service_name = module.ecs.ecs_service_name
-  rds_instance_id  = module.rds.rds_cluster_instance_id
-  app_name         = var.app_name
-  env_name         = var.env_name
-  email_alert_sns_topic_arn    = module.sns.email_alert_sns_topic_arn
-  common_tags      = var.common_tags
+  ecs_admin_service_name    = module.ecs.ecs_admin_service_name
+  ecs_merchant_service_name = module.ecs.ecs_merchant_service_name
+  ecs_payment_service_name  = module.ecs.ecs_payment_service_name
+  ecs_cluster_name          = module.ecs.ecs_cluster_name
+  rds_cluster_id            = module.rds.rds_cluster_id
+  app_name                  = var.app_name
+  env_name                  = var.env_name
+  email_alert_sns_topic_arn = module.sns.email_alert_sns_topic_arn
+  common_tags               = var.common_tags
 }
 
 module "sns" {
@@ -183,7 +186,7 @@ module "ssl_certificate" {
 module "ses" {
   source = "../../modules/ses"
 
-  zone_id =module.route53.zone_id
+  zone_id     = module.route53.zone_id
   domain_name = var.domain_name
 }
 

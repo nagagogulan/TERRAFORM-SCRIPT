@@ -15,25 +15,6 @@ resource "aws_lb" "app_alb" {
   tags = var.common_tags
 }
 
-//uncomment
-///load balancer listener
-# resource "aws_lb_listener" "app_alb_listeners" {
-#   load_balancer_arn = aws_lb.app_alb.arn
-#   port              = "80"
-#   protocol          = "HTTP"
-
-#   default_action {
-#     type = "redirect"
-
-#     redirect {
-#       port        = "443"
-#       protocol    = "HTTPS"
-#       status_code = "HTTP_301"
-#     }
-#   }
-#   tags = var.common_tags
-# }
-
 // admin listener
 resource "aws_lb_listener" "app_alb_listener_443_admin" {
   load_balancer_arn = aws_lb.app_alb.arn
@@ -131,7 +112,7 @@ resource "aws_lb_listener" "app_alb_listener_443_merchant" {
 
 
 
-# # ///load balancer listener //////////////////////////////////// reuse code once
+# # ///load balancer listener
 # resource "aws_lb_listener" "app_alb_listeners" {
 #   load_balancer_arn = aws_lb.app_alb.arn
 #   port              = "80"

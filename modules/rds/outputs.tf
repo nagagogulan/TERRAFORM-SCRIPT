@@ -14,7 +14,7 @@ output "db_user_secret" {
   value       = module.db.cluster_master_user_secret
 }
 
-output "rds_cluster_instance_id" {
+output "rds_cluster_id" {
   description = "Database cluster instance id"
   value       = module.db.cluster_id
 }
