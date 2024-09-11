@@ -1,5 +1,5 @@
 env_name                      = "dev"
-app_name                      = "pocproject"
+app_name                      = "appxpay"
 region                        = "ap-southeast-1"
 availability_zones            = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1c"]
 enable_nat_gateway            = true
