@@ -6,11 +6,11 @@ resource "aws_lb" "app_alb" {
   subnets                    = var.loadbalancer_subnets
   enable_deletion_protection = false
 
-  # access_logs {
-  #   bucket  = var.load_balancer_logs_s3_bucket_id
-  #   prefix  = "appx"
-  #   enabled = true
-  # }
+  access_logs {
+    bucket  = var.load_balancer_logs_s3_bucket_id
+    prefix  = "appx"
+    enabled = true
+  }
 
   tags = var.common_tags
 }

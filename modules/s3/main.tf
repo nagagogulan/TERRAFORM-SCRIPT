@@ -162,6 +162,7 @@ resource "aws_s3_bucket_policy" "app_logs_s3_bucket_policy" {
 EOF
 }
 
+data "aws_caller_identity" "current" {}
 resource "aws_s3_bucket_policy" "alb_logs_s3_bucket_policy" {
   bucket = module.load_balancer_logs_s3_bucket.s3_bucket_id
   policy = <<EOF
@@ -170,10 +171,13 @@ resource "aws_s3_bucket_policy" "alb_logs_s3_bucket_policy" {
     "Statement": [
         {
             "Effect": "Allow",
-            "Principal": "*",
-            "Action": "s3:*",
+            "Principal": {
+                  "AWS": "arn:aws:iam::${var.elb_account_id}:root"
+            },
+            "Action": [
+                "s3:PutObject"
+            ],
             "Resource": [
-                "arn:aws:s3:::${var.env_name}-${var.app_name}-alb-logs",
                 "arn:aws:s3:::${var.env_name}-${var.app_name}-alb-logs/*"
             ]
         }

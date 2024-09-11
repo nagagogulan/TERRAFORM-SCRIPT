@@ -27,3 +27,4 @@ autoscalling_desired_capacity = 1
 ecs_cpu                       = "512"
 ecs_memory                    = "1024"
 alert_email_addresses         = ["raja.periyasamy@concertidc.com"]
+elb_account_id                = "114774131450"

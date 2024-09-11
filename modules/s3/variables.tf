@@ -11,3 +11,8 @@ variable "app_name" {
 variable "common_tags" {
   description = "Common tags"
 }
+
+variable "elb_account_id" {
+  description = "The ID of the AWS account for Elastic Load Balancing for your Region"
+  type        = string
+}

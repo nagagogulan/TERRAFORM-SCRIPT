@@ -30,9 +30,10 @@ module "iam" {
 module "s3" {
   source = "../../modules/s3"
 
-  app_name    = var.app_name
-  env_name    = var.env_name
-  common_tags = var.common_tags
+  app_name       = var.app_name
+  env_name       = var.env_name
+  elb_account_id = var.elb_account_id
+  common_tags    = var.common_tags
 
   depends_on = [module.iam]
 }
@@ -127,16 +128,16 @@ module "ecs" {
   depends_on = [module.loadbalancer]
 }
 
-# module "cloudwatch" {
-#   source = "../../modules/cloudwatch"
+module "cloudwatch" {
+  source = "../../modules/cloudwatch"
 
-#   rds_instance_id  = module.rds.rds_cluster_instance_id
-#   app_name         = var.app_name
-#   env_name         = var.env_name
-#   ecs_service_name = module.ecs.ecs_service_name
-#   email_alert_sns_topic_arn    = module.sns.email_alert_sns_topic_arn
-#   common_tags      = var.common_tags
-# }
+  rds_instance_id  = module.rds.rds_cluster_instance_id
+  app_name         = var.app_name
+  env_name         = var.env_name
+  ecs_service_name = module.ecs.ecs_service_name
+  email_alert_sns_topic_arn    = module.sns.email_alert_sns_topic_arn
+  common_tags      = var.common_tags
+}
 
 module "sns" {
   source = "../../modules/sns"
