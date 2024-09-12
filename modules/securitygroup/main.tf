@@ -170,7 +170,7 @@ module "loadbalancer_sg" {
 module "jenkins_sg" {
   source = "terraform-aws-modules/security-group/aws"
 
-  name        = "${var.env_name}-bastion-sg"
+  name        = "${var.env_name}-jenkins-sg"
   description = "Security group for ${var.env_name}-jenkins-sg"
   vpc_id      = var.vpc_id
 

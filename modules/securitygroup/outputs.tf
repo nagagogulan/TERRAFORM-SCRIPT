@@ -18,7 +18,7 @@ output "loadbalancer_sg_id" {
   value       = module.loadbalancer_sg.security_group_id
 }
 output "jenkins_sg_id" {
-  description = "Load balancer security group id"
+  description = "Jenkins app security group id"
   value       = module.jenkins_sg.security_group_id
 }
 
