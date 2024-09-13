@@ -1,0 +1,59 @@
+pipeline {
+    agent any
+    environment {
+        AWS_REGION = 'ap-southeast-1'
+        ECR_REPO_URI = 'xxxxxx.dkr.ecr.ap-southeast-1.amazonaws.com/dev-appxpay-admin'
+        IMAGE_TAG = "php"
+        ECS_CLUSTER_NAME = 'dev-appxpay-cluster'
+        ECS_SERVICE_NAME = 'dev-appxpay-admin-service'
+        GIT_URL = 'https://gitlab.com/laravel-php1/laravel.git'
+    }
+    stages {
+        stage("Verify tooling") {
+            steps {
+                sh '''
+                    docker info
+                    docker version
+                '''
+            }
+        }
+        stage("Clear all running docker containers") {
+            steps {
+                script {
+                    try {
+                        sh 'docker rm -f $(docker ps -a -q)'
+                    } catch (Exception e) {
+                        echo 'No running container to clear up...'
+                    }
+                }
+            }
+        }
+        stage("Checkout code") {
+            steps {
+                git branch: 'main', url: ${GIT_URL}, credentialsId: 'gitlab-credentials'
+            }
+        }
+        stage("Build Docker image") {
+            steps {
+                sh '''
+                    docker build -t ${ECR_REPO_URI}:${IMAGE_TAG} .
+                '''
+            }
+        }
+        stage("Push Docker image to ECR") {
+            steps {
+                 sh '''
+                        $(aws ecr get-login --no-include-email --region ${AWS_REGION})
+                        docker push ${ECR_REPO_URI}:${IMAGE_TAG}
+                    '''
+            }
+        }
+        stage("Deploy to ECS") {
+            steps {
+                sh '''
+                    aws ecs update-service --cluster ${ECS_CLUSTER_NAME} --service ${ECS_SERVICE_NAME} --force-new-deployment --region ${AWS_REGION}
+                '''
+            }
+        }
+    }
+}
