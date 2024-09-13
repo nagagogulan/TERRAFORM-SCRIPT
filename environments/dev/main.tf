@@ -91,6 +91,7 @@ module "loadbalancer" {
   admin_domain_name               = var.admin_domain_name
   load_balancer_logs_s3_bucket_id = module.s3.load_balancer_logs_s3_bucket_id
   common_tags                     = var.common_tags
+  domain_name                     = var.domain_name
   certificate_arn                 = ""
   #certificate_arn            = module.ssl_certificate.ssl_certificate_arn
 }
@@ -183,12 +184,12 @@ module "ssl_certificate" {
   common_tags = var.common_tags
 }
 
-module "ses" {
-  source = "../../modules/ses"
+# module "ses" {
+#   source = "../../modules/ses"
 
-  zone_id     = module.route53.zone_id
-  domain_name = var.domain_name
-}
+#   zone_id     = module.route53.zone_id
+#   domain_name = var.domain_name
+# }
 
 # module "guardduty" {
 #   source = "../../modules/guardduty"

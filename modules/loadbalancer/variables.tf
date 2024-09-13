@@ -47,3 +47,8 @@ variable "load_balancer_logs_s3_bucket_id" {
   description = "Loadbalancer log s3 bucket id"
   type        = string
 }
+
+variable "domain_name" {
+  description = "Domain name"
+  type = string
+}
