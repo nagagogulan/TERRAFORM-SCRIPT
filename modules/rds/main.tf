@@ -9,7 +9,7 @@ module "db" {
   instances                            = { 1 = {} }
   port                                 = var.db_port
   create_db_subnet_group               = true
-  deletion_protection                  = true
+  deletion_protection                  = false
   db_subnet_group_name                 = "${var.env_name}${var.app_name}-db-subnet-group"
   manage_master_user_password          = true
   master_username                      = var.db_username

@@ -142,7 +142,7 @@ module "cloudwatch" {
   app_name                  = var.app_name
   env_name                  = var.env_name
   email_alert_sns_topic_arn = module.sns.email_alert_sns_topic_arn
-  common_tags               = var.common_tagsgit initgit a
+  common_tags               = var.common_tags
 }
 
 module "sns" {

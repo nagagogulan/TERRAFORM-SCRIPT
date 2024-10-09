@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        AWS_REGION = 'ap-southeast-1'
+        AWS_REGION = 'ap-south-1'
         ECR_REPO_URI = 'xxxxxx.dkr.ecr.ap-southeast-1.amazonaws.com/dev-appxpay-admin'
         IMAGE_TAG = "php"
         ECS_CLUSTER_NAME = 'dev-appxpay-cluster'

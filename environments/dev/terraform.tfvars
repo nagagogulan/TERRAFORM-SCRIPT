@@ -1,7 +1,7 @@
 env_name                      = "dev"
 app_name                      = "appxpay"
-region                        = "ap-southeast-1"
-availability_zones            = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1c"]
+region                        = "ap-south-1"
+availability_zones            = ["ap-south-1a", "ap-south-1b", "ap-south-1c"]
 enable_nat_gateway            = true
 single_nat_gateway            = true
 bastion_instance_type         = "t3.nano"
@@ -26,5 +26,5 @@ autoscalling_max_size         = 1
 autoscalling_desired_capacity = 1
 ecs_cpu                       = "512"
 ecs_memory                    = "1024"
-alert_email_addresses         = ["raja.periyasamy@concertidc.com"]
-elb_account_id                = "114774131450"
+alert_email_addresses         = ["ajay@twilightsoftwares.com"]
+elb_account_id                = "7673-9797-5516"
