@@ -9,14 +9,14 @@ resource "aws_ecs_service" "admin_service" {
   cluster                = aws_ecs_cluster.ecs.id
   launch_type            = "FARGATE"
   task_definition        = aws_ecs_task_definition.admin_task_definition.arn
-  desired_count          = 1
+  desired_count          = 5
   enable_execute_command = true
   wait_for_steady_state  = false
 
   network_configuration {
     security_groups  = var.ecs_cluster_security_groups
     subnets          = var.ecs_cluster_subnets
-    assign_public_ip = false
+    assign_public_ip = true
   }
 
   load_balancer {
@@ -95,7 +95,7 @@ resource "aws_ecs_service" "merchant_service" {
   cluster                = aws_ecs_cluster.ecs.id
   launch_type            = "FARGATE"
   task_definition        = aws_ecs_task_definition.merchant_task_definition.arn
-  desired_count          = 1
+  desired_count          = 5
   enable_execute_command = true
   wait_for_steady_state  = false
 
@@ -180,14 +180,14 @@ resource "aws_ecs_service" "payment_service" {
   cluster                = aws_ecs_cluster.ecs.id
   launch_type            = "FARGATE"
   task_definition        = aws_ecs_task_definition.payment_task_definition.arn
-  desired_count          = 1
+  desired_count          = 5
   enable_execute_command = true
   wait_for_steady_state  = false
 
   network_configuration {
     security_groups  = var.ecs_cluster_security_groups
     subnets          = var.ecs_cluster_subnets
-    assign_public_ip = false
+    assign_public_ip = true
   }
 
   load_balancer {

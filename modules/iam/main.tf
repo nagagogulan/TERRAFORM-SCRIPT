@@ -12,13 +12,15 @@ resource "aws_iam_policy" "s3_access_policy" {
           "s3:ListBucket",
           "s3:GetObject",
           "s3:PutObject",
-          "s3:DeleteObject"
+          "s3:DeleteObject",
+          "s3:PutObjectAcl"
         ]
         Resource = [
           "arn:aws:s3:::${var.env_name}-${var.app_name}-kyc",
           "arn:aws:s3:::${var.env_name}-${var.app_name}-documents",
-          # "arn:aws:s3:::${var.env_name}-${var.app_name}-app-logs",
-          # "arn:aws:s3:::${var.env_name}-${var.app_name}-alb-logs",
+          "arn:aws:s3:::${var.env_name}-${var.app_name}-app-logs",
+          "arn:aws:s3:::${var.env_name}-${var.app_name}-abbb-logs",
+          "arn:aws:s3:::${var.env_name}-${var.app_name}-abbb-logs/*"
           # "arn:aws:s3:::${var.env_name}-${var.app_name}-codepipeline"
         ]
       }

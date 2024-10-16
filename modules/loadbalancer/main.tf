@@ -15,6 +15,7 @@ resource "aws_lb" "app_alb" {
   tags = var.common_tags
 }
 
+  
 // admin listener
 resource "aws_lb_listener" "app_alb_listener_443_admin" {
   load_balancer_arn = aws_lb.app_alb.arn
@@ -62,7 +63,7 @@ resource "aws_lb_listener" "app_alb_listener_443_merchant" {
 }
 
 ///listener rules
-# resource "aws_lb_listener_rule" "admin_rule" {
+#resource "aws_lb_listener_rule" "admin_rule" {
 #   listener_arn = aws_lb_listener.app_alb_listener_443_admin.arn
 #   priority     = 100
 
@@ -174,4 +175,4 @@ resource "aws_lb_listener" "app_alb_listener_443_merchant" {
 #   }
 
 #   tags = var.common_tags
-# }
+# } r

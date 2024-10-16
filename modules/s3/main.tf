@@ -34,12 +34,12 @@ module "app_logs_s3_bucket" {
 module "load_balancer_logs_s3_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
 
-  bucket                   = "${var.env_name}-${var.app_name}-alb-logs"
+  bucket                   = "${var.env_name}-${var.app_name}-abbb-logs"
   acl                      = "private"
   control_object_ownership = true
   object_ownership         = "ObjectWriter"
   block_public_policy      = false
-  tags                     = merge(var.common_tags, { Name = "${var.env_name}-alb-logs" })
+  tags                     = merge(var.common_tags, { Name = "${var.env_name}-abbb-logs" })
 }
 
 module "codepipeline_s3_bucket" {
@@ -172,14 +172,19 @@ resource "aws_s3_bucket_policy" "alb_logs_s3_bucket_policy" {
         {
             "Effect": "Allow",
             "Principal": {
-                  "AWS": "arn:aws:iam::${var.elb_account_id}:root"
+                "AWS": "arn:aws:iam::718504428378:root"
             },
             "Action": [
                 "s3:PutObject"
             ],
             "Resource": [
-                "arn:aws:s3:::${var.env_name}-${var.app_name}-alb-logs/*"
-            ]
+                "arn:aws:s3:::dev-appxpay-abbb-logs/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": "bucket-owner-full-control"
+                }
+            }
         }
     ]
 }
