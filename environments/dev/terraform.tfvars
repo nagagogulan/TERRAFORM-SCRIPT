@@ -26,5 +26,5 @@ autoscalling_max_size         = 1
 autoscalling_desired_capacity = 1
 ecs_cpu                       = "512"
 ecs_memory                    = "1024"
-alert_email_addresses         = ["ajay@twilightsoftwares.com"]
+alert_email_addresses         = ["nagagogulan.selvaraj@twilightsoftwares.com"]
 elb_account_id                = "718504428378"

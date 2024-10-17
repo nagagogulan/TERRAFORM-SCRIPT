@@ -19,7 +19,7 @@ resource "aws_lb" "app_alb" {
 // admin listener
 resource "aws_lb_listener" "app_alb_listener_443_admin" {
   load_balancer_arn = aws_lb.app_alb.arn
-  port              = "80"
+  port              = "8082"
   protocol          = "HTTP"
   # ssl_policy        = "ELBSecurityPolicy-2016-08"
   # certificate_arn   = var.certificate_arn

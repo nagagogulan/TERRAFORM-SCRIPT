@@ -3,8 +3,7 @@ module "admin_ecr" {
 
   repository_name                 = "${var.env_name}-${var.app_name}-admin"
   repository_image_tag_mutability = "MUTABLE"
-  # repository_read_write_access_arns = [var.ecr_iam_arn]
-  repository_lifecycle_policy = jsonencode({
+  repository_lifecycle_policy     = jsonencode({
     rules = [
       {
         rulePriority = 1,
@@ -30,8 +29,7 @@ module "merchant_ecr" {
 
   repository_name                 = "${var.env_name}-${var.app_name}-merchant"
   repository_image_tag_mutability = "MUTABLE"
-  # repository_read_write_access_arns = [var.ecr_iam_arn]
-  repository_lifecycle_policy = jsonencode({
+  repository_lifecycle_policy     = jsonencode({
     rules = [
       {
         rulePriority = 1,
@@ -57,7 +55,7 @@ module "payment_api_ecr" {
 
   repository_name                 = "${var.env_name}-${var.app_name}-paymentapi"
   repository_image_tag_mutability = "MUTABLE"
-  repository_lifecycle_policy = jsonencode({
+  repository_lifecycle_policy     = jsonencode({
     rules = [
       {
         rulePriority = 1,
@@ -92,11 +90,10 @@ resource "null_resource" "pull_image" {
 
 resource "null_resource" "tag_image_admin" {
   provisioner "local-exec" {
-    command = "docker push nagagogulan/sep25-admin:v1 ${module.admin_ecr.repository_url}:v1"
+  # command = "docker tag nagagogulan/sep25-admin:v1 ${module.admin_ecr.repository_url}:v1"
+    command = "docker tag nagagogulan/axp-admin:tagname ${module.admin_ecr.repository_url}:latest"
   }
-  depends_on = [
-    null_resource.pull_image
-  ]
+  depends_on = [null_resource.pull_image]
 }
 
 resource "null_resource" "push_image_admin" {
@@ -108,17 +105,13 @@ resource "null_resource" "push_image_admin" {
 
 resource "null_resource" "tag_image_merchant" {
   provisioner "local-exec" {
-    # Tag the local image with the ECR repository URL
     command = "docker tag nagagogulan/axp-merchant:tagname ${module.merchant_ecr.repository_url}:latest"
   }
-  depends_on = [
-    null_resource.pull_image
-  ]
+  depends_on = [null_resource.pull_image]
 }
 
 resource "null_resource" "push_image_merchant" {
   provisioner "local-exec" {
-    # Push the tagged image to the ECR repository
     command = "docker push ${module.merchant_ecr.repository_url}:latest"
   }
   depends_on = [null_resource.tag_image_merchant]
@@ -128,9 +121,7 @@ resource "null_resource" "tag_image_payment" {
   provisioner "local-exec" {
     command = "docker tag nginx:latest ${module.payment_api_ecr.repository_url}:latest"
   }
-  depends_on = [
-    null_resource.pull_image
-  ]
+  depends_on = [null_resource.pull_image]
 }
 
 resource "null_resource" "push_image_payment" {

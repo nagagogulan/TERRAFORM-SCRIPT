@@ -4,7 +4,7 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
     }
-    local = {                           # Add the local provider
+    local = {                           
       source = "hashicorp/local"
     }
   }
@@ -12,8 +12,8 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = var.region                   # Ensure this is set to the correct region for your S3 bucket
+  region = var.region                  
 }
 
 # Add the Local provider
-provider "local" {}                     # Declare the local provider
+provider "local" {}                     

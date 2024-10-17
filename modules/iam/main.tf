@@ -19,8 +19,8 @@ resource "aws_iam_policy" "s3_access_policy" {
           "arn:aws:s3:::${var.env_name}-${var.app_name}-kyc",
           "arn:aws:s3:::${var.env_name}-${var.app_name}-documents",
           "arn:aws:s3:::${var.env_name}-${var.app_name}-app-logs",
-          "arn:aws:s3:::${var.env_name}-${var.app_name}-abbb-logs",
-          "arn:aws:s3:::${var.env_name}-${var.app_name}-abbb-logs/*"
+          "arn:aws:s3:::${var.env_name}-${var.app_name}-alb-logs-v",
+          "arn:aws:s3:::${var.env_name}-${var.app_name}-alb-logs-v/*"
           # "arn:aws:s3:::${var.env_name}-${var.app_name}-codepipeline"
         ]
       }

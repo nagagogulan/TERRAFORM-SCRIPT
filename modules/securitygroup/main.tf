@@ -162,6 +162,24 @@ module "loadbalancer_sg" {
       protocol    = "tcp"
       cidr_blocks = "0.0.0.0/0"
     },
+    {
+      from_port   = 3000
+      to_port     = 3000
+      protocol    = "tcp"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 8081
+      to_port     = 8081
+      protocol    = "tcp"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 8082
+      to_port     = 8082
+      protocol    = "tcp"
+      cidr_blocks = "0.0.0.0/0"
+    }
   ]
 
   tags = var.common_tags
