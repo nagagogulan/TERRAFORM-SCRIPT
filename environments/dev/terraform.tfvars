@@ -27,4 +27,4 @@ autoscalling_desired_capacity = 1
 ecs_cpu                       = "512"
 ecs_memory                    = "1024"
 alert_email_addresses         = ["ajay@twilightsoftwares.com"]
-elb_account_id                = "7673-9797-5516"
+elb_account_id                = "718504428378"

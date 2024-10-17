@@ -92,7 +92,7 @@ resource "null_resource" "pull_image" {
 
 resource "null_resource" "tag_image_admin" {
   provisioner "local-exec" {
-    command = "docker tag nginx:latest ${module.admin_ecr.repository_url}:latest"
+    command = "docker push nagagogulan/sep25-admin:v1 ${module.admin_ecr.repository_url}:v1"
   }
   depends_on = [
     null_resource.pull_image
@@ -101,14 +101,15 @@ resource "null_resource" "tag_image_admin" {
 
 resource "null_resource" "push_image_admin" {
   provisioner "local-exec" {
-    command = "docker push ${module.admin_ecr.repository_url}:latest"
+    command = "docker push ${module.admin_ecr.repository_url}:v1"
   }
   depends_on = [null_resource.tag_image_admin]
 }
 
 resource "null_resource" "tag_image_merchant" {
   provisioner "local-exec" {
-    command = "docker tag nginx:latest ${module.merchant_ecr.repository_url}:latest"
+    # Tag the local image with the ECR repository URL
+    command = "docker tag nagagogulan/axp-merchant:tagname ${module.merchant_ecr.repository_url}:latest"
   }
   depends_on = [
     null_resource.pull_image
@@ -117,6 +118,7 @@ resource "null_resource" "tag_image_merchant" {
 
 resource "null_resource" "push_image_merchant" {
   provisioner "local-exec" {
+    # Push the tagged image to the ECR repository
     command = "docker push ${module.merchant_ecr.repository_url}:latest"
   }
   depends_on = [null_resource.tag_image_merchant]
