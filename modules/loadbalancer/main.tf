@@ -34,7 +34,7 @@ resource "aws_lb_listener" "app_alb_listener_443_admin" {
 # // payment listener
 resource "aws_lb_listener" "app_alb_listener_443_payment" {
   load_balancer_arn = aws_lb.app_alb.arn
-  port              = "3000"
+  port              = "8083"
   protocol          = "HTTP"
   # ssl_policy        = "ELBSecurityPolicy-2016-08"
   # certificate_arn   = var.certificate_arn

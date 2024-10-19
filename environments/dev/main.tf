@@ -131,19 +131,19 @@ module "ecs" {
   depends_on = [module.loadbalancer]
 }
 
-module "cloudwatch" {
-  source = "../../modules/cloudwatch"
+# module "cloudwatch" {
+#   source = "../../modules/cloudwatch"
 
-  ecs_admin_service_name    = module.ecs.ecs_admin_service_name
-  ecs_merchant_service_name = module.ecs.ecs_merchant_service_name
-  ecs_payment_service_name  = module.ecs.ecs_payment_service_name
-  ecs_cluster_name          = module.ecs.ecs_cluster_name
-  rds_cluster_id            = module.rds.rds_cluster_id
-  app_name                  = var.app_name
-  env_name                  = var.env_name
-  email_alert_sns_topic_arn = module.sns.email_alert_sns_topic_arn
-  common_tags               = var.common_tags
-}
+#   ecs_admin_service_name    = module.ecs.ecs_admin_service_name
+#   ecs_merchant_service_name = module.ecs.ecs_merchant_service_name
+#   ecs_payment_service_name  = module.ecs.ecs_payment_service_name
+#   ecs_cluster_name          = module.ecs.ecs_cluster_name
+#   rds_cluster_id            = module.rds.rds_cluster_id
+#   app_name                  = var.app_name
+#   env_name                  = var.env_name
+#   email_alert_sns_topic_arn = module.sns.email_alert_sns_topic_arn
+#   common_tags               = var.common_tags
+# }
 
 module "sns" {
   source = "../../modules/sns"

@@ -163,8 +163,8 @@ module "loadbalancer_sg" {
       cidr_blocks = "0.0.0.0/0"
     },
     {
-      from_port   = 3000
-      to_port     = 3000
+      from_port   = 8083
+      to_port     = 8083
       protocol    = "tcp"
       cidr_blocks = "0.0.0.0/0"
     },
