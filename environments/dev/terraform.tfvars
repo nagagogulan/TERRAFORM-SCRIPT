@@ -10,6 +10,7 @@ domain_name                   = "appxpay.com"
 admin_domain_name             = "admin"
 payment_domain_name           = "payment"
 merchant_domain_name          = "merchant"
+payout_domain_name            = "payout"
 common_tags                   = { "environment" : "dev" }
 db_engine                     = "aurora-mysql"
 db_engine_version             = "8.0"

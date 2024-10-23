@@ -130,6 +130,11 @@ variable "merchant_domain_name" {
   type        = string
 }
 
+variable "payout_domain_name" {
+  description = "payout domain name"
+  type        = string
+}
+
 variable "ecs_cpu" {
   description = "ECS cpu configuration"
   type        = string

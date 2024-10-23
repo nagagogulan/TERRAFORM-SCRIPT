@@ -18,6 +18,11 @@ variable "merchant_domain_name" {
   type        = string
 }
 
+variable "payout_domain_name" {
+  description = "The sub domain name for the merchant application"
+  type        = string
+}
+
 variable "admin_domain_name" {
   description = "The sub domain name for the admin application"
   type        = string

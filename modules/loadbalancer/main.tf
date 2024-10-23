@@ -62,6 +62,19 @@ resource "aws_lb_listener" "app_alb_listener_443_merchant" {
   tags = var.common_tags
 }
 
+resource "aws_lb_listener" "app_alb_listener_443_payout" {
+  load_balancer_arn = aws_lb.app_alb.arn
+  port              = "8084"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.payout_tg.arn  # Ensure this target group exists
+  }
+
+  tags = var.common_tags
+}
+
 ///listener rules
 #resource "aws_lb_listener_rule" "admin_rule" {
 #   listener_arn = aws_lb_listener.app_alb_listener_443_admin.arn

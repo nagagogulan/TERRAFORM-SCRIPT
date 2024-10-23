@@ -88,6 +88,7 @@ module "loadbalancer" {
   loadbalancer_subnets            = [module.app_vpc.public_subnet_ids[0], module.app_vpc.public_subnet_ids[1], module.app_vpc.public_subnet_ids[2]]
   payment_domain_name             = var.payment_domain_name
   merchant_domain_name            = var.merchant_domain_name
+  payout_domain_name              = var.payout_domain_name
   admin_domain_name               = var.admin_domain_name
   load_balancer_logs_s3_bucket_id = module.s3.load_balancer_logs_s3_bucket_id
   common_tags                     = var.common_tags
@@ -116,11 +117,13 @@ module "ecs" {
   admin_tg_arn                = module.loadbalancer.admin_tg_arn
   payment_tg_arn              = module.loadbalancer.payment_tg_arn
   merchant_tg_arn             = module.loadbalancer.merchant_tg_arn
+  payout_tg_arn               = module.loadbalancer.payout_tg_arn
   ecs_task_execution_role     = module.iam.ecs_task_execution_role_arn
   ecs_task_role               = module.iam.ecs_task_execution_role_arn
   admin_ecr_url               = module.ecr.admin_ecr_url
   merchant_ecr_url            = module.ecr.merchant_ecr_url
   payment_ecr_url             = module.ecr.payment_ecr_url
+  payout_ecr_url              = module.ecr.payout_ecr_url
   ecs_cpu                     = var.ecs_cpu
   ecs_memory                  = var.ecs_memory
   region                      = var.region
@@ -161,6 +164,7 @@ module "route53" {
   payment_domain_name  = var.payment_domain_name
   merchant_domain_name = var.merchant_domain_name
   admin_domain_name    = var.admin_domain_name
+  payout_domain_name   = var.payout_domain_name
   domain_name          = var.domain_name
   alb_zone_id          = module.loadbalancer.alb_zone_id
   common_tags          = var.common_tags

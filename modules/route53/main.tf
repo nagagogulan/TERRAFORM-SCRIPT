@@ -36,3 +36,15 @@ resource "aws_route53_record" "merchant_dns" {
     evaluate_target_health = true
   }
 }
+
+// New Route 53 record for payout subdomain
+resource "aws_route53_record" "payout_dns" {
+  zone_id = aws_route53_zone.hosted_zone.zone_id
+  name    = "${var.payout_domain_name}.${var.domain_name}"
+  type    = "A"
+  alias {
+    name                   = var.alb_dns_name
+    zone_id                = var.alb_zone_id
+    evaluate_target_health = true
+  }
+}

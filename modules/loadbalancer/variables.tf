@@ -43,6 +43,11 @@ variable "merchant_domain_name" {
   type        = string
 }
 
+variable "payout_domain_name" {
+  description = "Payout domain name"
+  type        = string
+}
+
 variable "load_balancer_logs_s3_bucket_id" {
   description = "Loadbalancer log s3 bucket id"
   type        = string

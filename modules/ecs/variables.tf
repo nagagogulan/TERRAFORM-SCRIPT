@@ -23,6 +23,12 @@ variable "merchant_tg_arn" {
   type        = string
 }
 
+
+variable "payout_tg_arn" {
+  description = "Payout target group ARN"
+  type        = string
+}
+
 variable "vpc_id" {
   description = "VPC id"
   type        = string
@@ -68,6 +74,11 @@ variable "payment_ecr_url" {
 
 variable "merchant_ecr_url" {
   description = "Merchant image arn from ecr repository"
+  type        = string
+}
+
+variable "payout_ecr_url" {
+  description = "Payout image arn from ecr repository"
   type        = string
 }
 

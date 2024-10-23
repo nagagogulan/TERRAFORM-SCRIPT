@@ -140,6 +140,7 @@ module "loadbalancer_sg" {
       cidr_blocks = "::/0"
     }
   ]
+  
   egress_with_cidr_blocks = [
     {
       from_port   = 0
@@ -179,11 +180,18 @@ module "loadbalancer_sg" {
       to_port     = 8082
       protocol    = "tcp"
       cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 8084
+      to_port     = 8084
+      protocol    = "tcp"
+      cidr_blocks = "0.0.0.0/0"
     }
   ]
 
   tags = var.common_tags
 }
+
 
 module "jenkins_sg" {
   source = "terraform-aws-modules/security-group/aws"

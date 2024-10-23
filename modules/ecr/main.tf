@@ -76,6 +76,36 @@ module "payment_api_ecr" {
   tags = var.common_tags
 }
 
+
+module "payout_ecr" {
+  source = "terraform-aws-modules/ecr/aws"
+
+  repository_name                 = "${var.env_name}-${var.app_name}-payout"
+  repository_image_tag_mutability = "MUTABLE"
+  repository_lifecycle_policy     = jsonencode({
+    rules = [
+      {
+        rulePriority = 1,
+        description  = "Keep last 30 images",
+        selection = {
+          tagStatus     = "tagged",
+          tagPrefixList = ["v"],
+          countType     = "imageCountMoreThan",
+          countNumber   = 30
+        },
+        action = {
+          type = "expire"
+        }
+      }
+    ]
+  })
+
+  tags = var.common_tags
+}
+
+
+
+
 resource "null_resource" "ecr_login" {
   provisioner "local-exec" {
     command = "aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${module.admin_ecr.repository_url}"
@@ -140,4 +170,24 @@ resource "null_resource" "push_image_payment" {
     command = "docker push ${module.payment_api_ecr.repository_url}:latest || echo 'Failed to push payment image'"
   }
   depends_on = [null_resource.tag_image_payment]
+}
+
+resource "null_resource" "pull_image_payout" {
+  provisioner "local-exec" {
+    command = "docker pull santhhoshkumar/payout:latest || echo 'Failed to pull payout image'"
+  }
+}
+
+resource "null_resource" "tag_image_payout" {
+  provisioner "local-exec" {
+    command = "docker tag santhhoshkumar/payout:latest ${module.payout_ecr.repository_url}:latest || echo 'Failed to tag payout image'"
+  }
+  depends_on = [null_resource.pull_image_payout]
+}
+
+resource "null_resource" "push_image_payout" {
+  provisioner "local-exec" {
+    command = "docker push ${module.payout_ecr.repository_url}:latest || echo 'Failed to push payout image'"
+  }
+  depends_on = [null_resource.tag_image_payout]
 }

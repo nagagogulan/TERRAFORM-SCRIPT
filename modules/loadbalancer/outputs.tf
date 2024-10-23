@@ -28,6 +28,12 @@ output "merchant_tg_arn" {
   value       = aws_lb_target_group.merchant_tg.arn
 }
 
+output "payout_tg_arn" {
+  description = "The arn of the merchant target group"
+  value       = aws_lb_target_group.payout_tg.arn
+}
+
+
 output "alb_dns_name" {
   description = "The dns name of application load balancer"
   value       = aws_lb.app_alb.dns_name
